@@ -16,7 +16,7 @@
 	};
 
 	Board.prototype.getNewPiece = function() {
-		this.currentPiece = new Tetris.Piece();
+		this.currentPiece = new Tetris.iPiece();
 	};
 	
 	Board.prototype.getAllBlocks = function() {

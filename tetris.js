@@ -16,8 +16,6 @@
 		
 		setInterval(function() {
  	 		that.board.update();
-
-			console.log(that.board.getAllBlocks());	
 			
 		}, 1000);
 		
