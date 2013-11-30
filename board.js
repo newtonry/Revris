@@ -32,9 +32,8 @@
 	};
 	
 	Board.prototype.moveCurrentPiece = function(dir) {
-
-		if (!this.isMoveValid(this.currentPiece, dir)) {
-			alert('not a valid move');
+		if (this.isMoveValid(this.currentPiece, dir)) {
+			this.currentPiece.move(dir);
 		}
 		
 		// this.currentPiece.move(dir);
@@ -43,13 +42,14 @@
 	};
 	
 	Board.prototype.isMoveValid = function(piece, dir) {
-		piece.move(dir);
+		var clonedPiece = piece.deepDup();//$.extend(true, {}, piece);
 		
-		if (!this.isOnBoard) {
+		clonedPiece.move(dir);
+		
+		if (!this.isOnBoard(clonedPiece)) {
 			return false;
 		}
-		
-		
+			
 		return true;
 		//is on the board
 		//doesn't collide
@@ -59,23 +59,18 @@
 	
 	Board.prototype.isOnBoard = function(piece) {
 		for (var i = 0; i < piece.blocks.length ;i++) {
-			if (piece.blocks[i].position[0] > 10) {
+			if (piece.blocks[i].position[0] > 9 || piece.blocks[i].position[0] < 0) {
+				console.log('not on board');
 				return false;
-			} else if (piece.blocks[i].position[1] > 22) {
+			} else if (piece.blocks[i].position[1] > 21) {
 				return false;
 			// } else if (piece.blocks[i].) {
 			// 	
 			// 	
-			// }	
+			}	
 		}
 		
 		return true;
 	};
-	
-	
-	// Board.prototype.grid = function() {
-	// 	console.log('hi')
-	// };
-	
-	
+
 })(this);

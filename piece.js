@@ -12,6 +12,21 @@
 			
 		}
 	};
+	
+	Piece.prototype.deepDup = function() {
+		var dupedPiece = new this.constructor();
+		dupedPiece.blocks = [];
+
+		for(var i = 0; i < this.blocks.length; i++) {
+			dupedPiece.blocks.push(
+				new Tetris.Block([this.blocks[i].position[0], this.blocks[i].position[1]])
+			);
+		}
+
+		return dupedPiece;
+	};
+	
+	
 				
 	var iPiece = Tetris.iPiece = function() {	
 		this.blocks = [
@@ -25,7 +40,8 @@
 	};
 	
 	iPiece.prototype.move = Piece.prototype.move;
-	
+	iPiece.prototype.deepDup = Piece.prototype.deepDup;
+		
 	iPiece.prototype.rotate = function() {
 		var rotations = [[-1,1], [0,0], [1, -1], [2, -2]];
 		
@@ -56,6 +72,7 @@
 	};
 	
 	sPiece.prototype.move = Piece.prototype.move;
+	sPiece.prototype.deepDup = Piece.prototype.deepDup;
 
 	sPiece.prototype.rotate = function() {
 		for(var i = 0; i < this.blocks.length; i++) {
@@ -79,7 +96,7 @@
 	};
 	
 	zPiece.prototype.move = Piece.prototype.move;
-	
+	zPiece.prototype.deepDup = Piece.prototype.deepDup;	
 
 	var cubePiece = Tetris.cubePiece = function() {	
 		this.blocks = [
@@ -91,6 +108,7 @@
 	};
 	
 	cubePiece.prototype.move = Piece.prototype.move;
+	cubePiece.prototype.deepDup = Piece.prototype.deepDup;
 	cubePiece.prototype.rotate = function() {};
 
 
@@ -111,8 +129,8 @@
 		];
 	};
 	
-	backLPiece.prototype.move = Piece.prototype.move;
-	
+
+		
 	backLPiece.prototype.rotate = function() {
 		for(var i = 0; i < this.blocks.length; i++) {
 			var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
@@ -123,17 +141,8 @@
 		this.state = (this.state + 1) % 4;
 	};
 
-
-	var lPiece = Tetris.lPiece = function() {	
-		this.blocks = [
-			new Tetris.Block([3,1]),
-			new Tetris.Block([4,1]),
-			new Tetris.Block([5,1]),
-			new Tetris.Block([5,0])
-		];
-	};
-	
 	backLPiece.prototype.move = Piece.prototype.move;
+	backLPiece.prototype.deepDup = Piece.prototype.deepDup;
 
 
 	var lPiece = Tetris.lPiece = function() {	
@@ -146,6 +155,8 @@
 	};
 	
 	lPiece.prototype.move = Piece.prototype.move;
+	lPiece.prototype.deepDup = Piece.prototype.deepDup;
+	
 
 	var centerPiece = Tetris.centerPiece = function() {	
 		this.blocks = [
@@ -157,7 +168,7 @@
 	};
 	
 	centerPiece.prototype.move = Piece.prototype.move;
-	
+	centerPiece.prototype.deepDup = Piece.prototype.deepDup;
 	
 	
 	
