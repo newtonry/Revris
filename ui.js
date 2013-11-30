@@ -44,7 +44,7 @@
 			}
 			//space 
 			else if (e.keyCode == 32) {
-				console.log('turn');
+				board.currentPiece.rotate();
 			}			
 		})
 		

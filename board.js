@@ -16,7 +16,7 @@
 	};
 
 	Board.prototype.getNewPiece = function() {
-		this.currentPiece = new Tetris.iPiece();
+		this.currentPiece = new Tetris.sPiece();
 	};
 	
 	Board.prototype.getAllBlocks = function() {
@@ -24,7 +24,7 @@
 	};
 	
 	Board.prototype.update = function() {
-		this.currentPiece.move([0, 1]);// moves one unit down naturally
+		this.moveCurrentPiece([0, 1]);// moves one unit down naturally
 		
 		
 		//check for removed rows if succeeded
@@ -32,12 +32,45 @@
 	};
 	
 	Board.prototype.moveCurrentPiece = function(dir) {
-		this.currentPiece.move(dir);
+
+		if (!this.isMoveValid(this.currentPiece, dir)) {
+			alert('not a valid move');
+		}
+		
+		// this.currentPiece.move(dir);
 		
 		//check if valid move
-	}
+	};
 	
+	Board.prototype.isMoveValid = function(piece, dir) {
+		piece.move(dir);
+		
+		if (!this.isOnBoard) {
+			return false;
+		}
+		
+		
+		return true;
+		//is on the board
+		//doesn't collide
+		
+		
+	};
 	
+	Board.prototype.isOnBoard = function(piece) {
+		for (var i = 0; i < piece.blocks.length ;i++) {
+			if (piece.blocks[i].position[0] > 10) {
+				return false;
+			} else if (piece.blocks[i].position[1] > 22) {
+				return false;
+			// } else if (piece.blocks[i].) {
+			// 	
+			// 	
+			// }	
+		}
+		
+		return true;
+	};
 	
 	
 	// Board.prototype.grid = function() {
