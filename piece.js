@@ -2,9 +2,7 @@
 	var Tetris = root.Tetris = (root.Tetris || {});
 	
 	var Piece = Tetris.Piece = function() {};	
-	Piece.prototype.move = function(shift) {
-		//needs to check if move is valid THIS SHOULD ACTUALLY HAPPEN IN THE BOARD
-		
+	Piece.prototype.move = function(shift) {		
 		for(var i = 0; i < this.blocks.length; i++) {
 			var newX = this.blocks[i].position[0] + shift[0];
 			var newY = this.blocks[i].position[1] + shift[1];
@@ -94,33 +92,13 @@
 			new Tetris.Block([4,1]),
 			new Tetris.Block([5,0])
 		];
-		
-		// this.state = 0;
-		// this.rotations = [
-		// 	[[1,-1], [1,1], [0,0], [0,2]],
-		// 	[[1,1], [-1,1], [0,0], [-2,0]],
-		// 	[[-1,1], [-1,-1], [0,0], [0,-2]],
-		// 	[[-1,-1], [1,-1], [0,0], [2,0]]
-		// ];
+
 	};
 	
 	sPiece.prototype.move = Piece.prototype.move;
 	sPiece.prototype.deepDup = Piece.prototype.deepDup;
 	sPiece.prototype.rotate = Piece.prototype.rotate;
 	
-
-	// sPiece.prototype.rotate = function() {
-	// 	for(var i = 0; i < this.blocks.length; i++) {
-	// 		var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
-	// 		var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
-	// 		this.blocks[i].position = [newX, newY];				
-	// 	}
-	// 
-	// 	this.state = (this.state + 1) % 4;
-	// };
-
-
-
 	var zPiece = Tetris.zPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([5,0]),
@@ -155,28 +133,8 @@
 			new Tetris.Block([4,1]),
 			new Tetris.Block([5,1])
 		];
-		
-		// this.state = 0;
-		// this.rotations = [
-		// 	[[2,0], [1,-1], [0,0], [-1,1]],
-		// 	[[0,2], [1,1], [0,0], [-1,-1]],
-		// 	[[-2,0], [-1,1], [0,0], [1,-1]],
-		// 	[[0,-2], [-1,-1], [0,0], [1,1]]
-		// ];
 	};
 	
-
-		
-	// backLPiece.prototype.rotate = function() {
-	// 	for(var i = 0; i < this.blocks.length; i++) {
-	// 		var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
-	// 		var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
-	// 		this.blocks[i].position = [newX, newY];				
-	// 	}
-	// 
-	// 	this.state = (this.state + 1) % 4;
-	// };
-
 	backLPiece.prototype.move = Piece.prototype.move;
 	backLPiece.prototype.deepDup = Piece.prototype.deepDup;
 	backLPiece.prototype.rotate = Piece.prototype.rotate;

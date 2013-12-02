@@ -52,7 +52,7 @@
 
 	
 	UI.prototype.printBoard = function(blocks) {
-		$(this.canvas).find(".square").css('background-color', 'green');
+		$(this.canvas).find(".square").css('background-color', '#99E6FF');
 		for(var i = 0; i < blocks.length; i++) {
 			var xPos = blocks[i].position[0];
 			var yPos = blocks[i].position[1];

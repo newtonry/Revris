@@ -32,14 +32,12 @@
 	};
 	
 	Board.prototype.moveCurrentPiece = function(dir) {
-		// check if piece is dead
-		//check should be done above move so that user can shift the block for 1 s after
-		if (this.isPieceDead(this.currentPiece)) {
+		if (this.isMoveValid(this.currentPiece, dir)) {
+			this.currentPiece.move(dir);
+		} else if (dir[1] > 0) { //if the piece wasn't valid and the move was down, we know the piece hit a floor
 			this.addPieceToDead(this.currentPiece);
 			this.getNewPiece();			
-		} else if (this.isMoveValid(this.currentPiece, dir)) {
-			this.currentPiece.move(dir);
-		}		
+		}
 	};
 	
 	Board.prototype.rotateCurrentPiece = function() {
@@ -56,46 +54,42 @@
 		}
 	}
 	
-	Board.prototype.isPieceDead = function(piece) {
-		for (var i = 0; i < piece.blocks.length; i++) {
-			if (piece.blocks[i].position[1] + 1 > 21 ) {
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	
 	Board.prototype.isMoveValid = function(piece, dir) {
-		var clonedPiece = piece.deepDup();//$.extend(true, {}, piece);
+		var clonedPiece = piece.deepDup();
 		
 		clonedPiece.move(dir);
 		
 		if (!this.isOnBoard(clonedPiece)) {
 			return false;
 		}
+		
+		for (var i = 0; i < clonedPiece.blocks.length; i++) {
+			var blockPos = clonedPiece.blocks[i].position;
+			for (var j = 0; j < this.deadBlocks.length; j++) {
+				if ( blockPos[0] === this.deadBlocks[j].position[0] && blockPos[1] === this.deadBlocks[j].position[1])
+				return false;
+			}
+		}
 			
 		return true;
-
-		//doesn't collide
-		
-		
 	};
 	
 	Board.prototype.isOnBoard = function(piece) {
-		for (var i = 0; i < piece.blocks.length ;i++) {
+		for (var i = 0; i < piece.blocks.length; i++) {
 			if (piece.blocks[i].position[0] > 9 || piece.blocks[i].position[0] < 0) {
-				console.log('not on board');
 				return false;
 			} else if (piece.blocks[i].position[1] > 21) {
 				return false;
-			// } else if (piece.blocks[i].) {
-			// 	
-			// 	
 			}	
 		}
 		
 		return true;
 	};
+	
+	Board.prototype.removeLines = function() {
+		//next thing to do is add a lines check and lines remove
+		
+	};
+	
 
 })(this);
