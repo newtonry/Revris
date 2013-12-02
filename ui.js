@@ -44,7 +44,7 @@
 			}
 			//space 
 			else if (e.keyCode == 32) {
-				board.currentPiece.rotate();
+				board.rotateCurrentPiece();
 			}			
 		})
 		

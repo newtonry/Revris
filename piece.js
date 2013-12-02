@@ -26,7 +26,40 @@
 		return dupedPiece;
 	};
 	
+	Piece.prototype.rotate = function() {
+		var rotationBlock = this.blocks[2];//this is just what I chose, should set to 0 and fix if statement in for loop
+
+		for (var i = 0; i < this.blocks.length; i++) {
+			if (i != 2) {
+
+				var xDiff = spaceship(this.blocks[i].position[0], rotationBlock.position[0]);
+				var yDiff = spaceship(this.blocks[i].position[1], rotationBlock.position[1]) * -1;
+
+				//top if is for adjacent pieces. else are for diagonal ones
+				if ((xDiff === 0) || (yDiff === 0)) {					
+						var yPos = (this.blocks[i].position[0] - rotationBlock.position[0]) + rotationBlock.position[1];
+						var xPos = (this.blocks[i].position[1] - rotationBlock.position[1]) * -1 + rotationBlock.position[0]; 
+						this.blocks[i].position = [xPos, yPos];
+					} else if (xDiff * yDiff > 0) {
+						this.blocks[i].position[1] = (this.blocks[i].position[1] - rotationBlock.position[1]) * -1 + rotationBlock.position[1];
+					} else  if (xDiff * yDiff < 0){
+						this.blocks[i].position[0] = (this.blocks[i].position[0] - rotationBlock.position[0]) * -1 + rotationBlock.position[0];
+					}
+			}
+		}
+	};
 	
+	//move elsewhere
+	root.spaceship = function(val1, val2) {
+		if (val1 > val2) {
+			return 1;
+		} else if (val2 > val1) {
+			return -1;
+		} else {
+			return 0;
+		}
+	};
+				
 				
 	var iPiece = Tetris.iPiece = function() {	
 		this.blocks = [
@@ -62,27 +95,29 @@
 			new Tetris.Block([5,0])
 		];
 		
-		this.state = 0;
-		this.rotations = [
-			[[1,-1], [1,1], [0,0], [0,2]],
-			[[1,1], [-1,1], [0,0], [-2,0]],
-			[[-1,1], [-1,-1], [0,0], [0,-2]],
-			[[-1,-1], [1,-1], [0,0], [2,0]]
-		];
+		// this.state = 0;
+		// this.rotations = [
+		// 	[[1,-1], [1,1], [0,0], [0,2]],
+		// 	[[1,1], [-1,1], [0,0], [-2,0]],
+		// 	[[-1,1], [-1,-1], [0,0], [0,-2]],
+		// 	[[-1,-1], [1,-1], [0,0], [2,0]]
+		// ];
 	};
 	
 	sPiece.prototype.move = Piece.prototype.move;
 	sPiece.prototype.deepDup = Piece.prototype.deepDup;
+	sPiece.prototype.rotate = Piece.prototype.rotate;
+	
 
-	sPiece.prototype.rotate = function() {
-		for(var i = 0; i < this.blocks.length; i++) {
-			var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
-			var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
-			this.blocks[i].position = [newX, newY];				
-		}
-
-		this.state = (this.state + 1) % 4;
-	};
+	// sPiece.prototype.rotate = function() {
+	// 	for(var i = 0; i < this.blocks.length; i++) {
+	// 		var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
+	// 		var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
+	// 		this.blocks[i].position = [newX, newY];				
+	// 	}
+	// 
+	// 	this.state = (this.state + 1) % 4;
+	// };
 
 
 
@@ -97,12 +132,13 @@
 	
 	zPiece.prototype.move = Piece.prototype.move;
 	zPiece.prototype.deepDup = Piece.prototype.deepDup;	
+	zPiece.prototype.rotate = Piece.prototype.rotate;
 
 	var cubePiece = Tetris.cubePiece = function() {	
 		this.blocks = [
 			new Tetris.Block([4,0]),
-			new Tetris.Block([5,0]),
 			new Tetris.Block([4,1]),
+			new Tetris.Block([5,0]),
 			new Tetris.Block([5,1])
 		];
 	};
@@ -120,56 +156,58 @@
 			new Tetris.Block([5,1])
 		];
 		
-		this.state = 0;
-		this.rotations = [
-			[[2,0], [1,-1], [0,0], [-1,1]],
-			[[0,2], [1,1], [0,0], [-1,-1]],
-			[[-2,0], [-1,1], [0,0], [1,-1]],
-			[[0,-2], [-1,-1], [0,0], [1,1]]
-		];
+		// this.state = 0;
+		// this.rotations = [
+		// 	[[2,0], [1,-1], [0,0], [-1,1]],
+		// 	[[0,2], [1,1], [0,0], [-1,-1]],
+		// 	[[-2,0], [-1,1], [0,0], [1,-1]],
+		// 	[[0,-2], [-1,-1], [0,0], [1,1]]
+		// ];
 	};
 	
 
 		
-	backLPiece.prototype.rotate = function() {
-		for(var i = 0; i < this.blocks.length; i++) {
-			var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
-			var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
-			this.blocks[i].position = [newX, newY];				
-		}
-
-		this.state = (this.state + 1) % 4;
-	};
+	// backLPiece.prototype.rotate = function() {
+	// 	for(var i = 0; i < this.blocks.length; i++) {
+	// 		var newX = this.blocks[i].position[0] + (this.rotations[this.state][i][0]); 
+	// 		var newY = this.blocks[i].position[1] + (this.rotations[this.state][i][1]);
+	// 		this.blocks[i].position = [newX, newY];				
+	// 	}
+	// 
+	// 	this.state = (this.state + 1) % 4;
+	// };
 
 	backLPiece.prototype.move = Piece.prototype.move;
 	backLPiece.prototype.deepDup = Piece.prototype.deepDup;
+	backLPiece.prototype.rotate = Piece.prototype.rotate;
 
 
 	var lPiece = Tetris.lPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([3,1]),
-			new Tetris.Block([4,1]),
 			new Tetris.Block([5,1]),
+			new Tetris.Block([4,1]),
 			new Tetris.Block([5,0])
 		];
 	};
 	
 	lPiece.prototype.move = Piece.prototype.move;
+	lPiece.prototype.rotate = Piece.prototype.rotate;
 	lPiece.prototype.deepDup = Piece.prototype.deepDup;
 	
 
 	var centerPiece = Tetris.centerPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([3,1]),
-			new Tetris.Block([4,1]),
 			new Tetris.Block([5,1]),
+			new Tetris.Block([4,1]),
 			new Tetris.Block([4,0])
 		];
 	};
 	
 	centerPiece.prototype.move = Piece.prototype.move;
 	centerPiece.prototype.deepDup = Piece.prototype.deepDup;
-	
+	centerPiece.prototype.rotate = Piece.prototype.rotate;	
 	
 	
 })(this);

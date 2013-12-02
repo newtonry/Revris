@@ -16,7 +16,7 @@
 	};
 
 	Board.prototype.getNewPiece = function() {
-		this.currentPiece = new Tetris.sPiece();
+		this.currentPiece = new Tetris.zPiece();
 	};
 	
 	Board.prototype.getAllBlocks = function() {
@@ -40,6 +40,15 @@
 		
 		//check if valid move
 	};
+	
+	Board.prototype.rotateCurrentPiece = function() {
+		var clonedPiece = this.currentPiece.deepDup();
+		clonedPiece.rotate();
+		if (this.isOnBoard(clonedPiece)) {
+			this.currentPiece.rotate();
+		}
+	}
+	
 	
 	Board.prototype.isMoveValid = function(piece, dir) {
 		var clonedPiece = piece.deepDup();//$.extend(true, {}, piece);
