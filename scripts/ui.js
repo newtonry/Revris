@@ -49,7 +49,6 @@
 		})
 		
 	};
-
 	
 	UI.prototype.printBoard = function(blocks) {
 		$(this.canvas).find(".square").css('background-color', '#99E6FF');
@@ -59,6 +58,4 @@
 			$(this.canvas).find("#pos-" + xPos + "-" + yPos).css('background-color', blocks[i].color);
 		}
 	};
-	
-	
 })(this);
