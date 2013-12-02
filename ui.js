@@ -23,9 +23,9 @@
 		$(document).keydown(function(e) {
 			
 			//up 
-			// if (e.keyCode == 38) {
-			// 	return []
-			// }
+			if (e.keyCode == 38) {
+				board.rotateCurrentPiece();
+			}
 
 			//down 
 			if (e.keyCode == 40) {

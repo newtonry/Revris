@@ -11,34 +11,35 @@
 			}
 		}
 		
-		this.deadSpaces = [];
+		this.deadBlocks = [];
 		this.currentPiece = null;
 	};
 
 	Board.prototype.getNewPiece = function() {
-		this.currentPiece = new Tetris.zPiece();
+		var pieces = [Tetris.iPiece, Tetris.lPiece, Tetris.backLPiece, Tetris.cubePiece, Tetris.sPiece, Tetris.zPiece, Tetris.centerPiece];
+		var pickedPiece = pieces[Math.floor(Math.random()*pieces.length)];
+		
+		
+		this.currentPiece = new pickedPiece();
 	};
 	
 	Board.prototype.getAllBlocks = function() {
-		return this.deadSpaces.concat(this.currentPiece.blocks);
+		return this.deadBlocks.concat(this.currentPiece.blocks);
 	};
 	
 	Board.prototype.update = function() {
 		this.moveCurrentPiece([0, 1]);// moves one unit down naturally
-		
-		
-		//check for removed rows if succeeded
-		
 	};
 	
 	Board.prototype.moveCurrentPiece = function(dir) {
-		if (this.isMoveValid(this.currentPiece, dir)) {
+		// check if piece is dead
+		//check should be done above move so that user can shift the block for 1 s after
+		if (this.isPieceDead(this.currentPiece)) {
+			this.addPieceToDead(this.currentPiece);
+			this.getNewPiece();			
+		} else if (this.isMoveValid(this.currentPiece, dir)) {
 			this.currentPiece.move(dir);
-		}
-		
-		// this.currentPiece.move(dir);
-		
-		//check if valid move
+		}		
 	};
 	
 	Board.prototype.rotateCurrentPiece = function() {
@@ -47,7 +48,22 @@
 		if (this.isOnBoard(clonedPiece)) {
 			this.currentPiece.rotate();
 		}
+	};
+	
+	Board.prototype.addPieceToDead = function(piece) {
+		for (var i = 0; i < piece.blocks.length; i++) {
+			this.deadBlocks.push(piece.blocks[i]);
+		}
 	}
+	
+	Board.prototype.isPieceDead = function(piece) {
+		for (var i = 0; i < piece.blocks.length; i++) {
+			if (piece.blocks[i].position[1] + 1 > 21 ) {
+				return true;
+			}
+		}
+		return false;
+	};
 	
 	
 	Board.prototype.isMoveValid = function(piece, dir) {
@@ -60,7 +76,7 @@
 		}
 			
 		return true;
-		//is on the board
+
 		//doesn't collide
 		
 		
