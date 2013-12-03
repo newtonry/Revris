@@ -7,6 +7,19 @@
 	border-style: double;
 }
 
+.block {
+	border: 1px;
+	border-style: solid;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	
+}
+
+.empty {
+	background-color: #99E6FF;
+	
+}
+
 .row {
 	float: left;
 }
@@ -14,7 +27,5 @@
 .square {
 	width: 20px;
 	height: 20px;
-	background-color: yellow;
 }
-
 

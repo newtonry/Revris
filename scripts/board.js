@@ -36,6 +36,7 @@
 			this.currentPiece.move(dir);
 		} else if (dir[1] > 0) { //if the piece wasn't valid and the move was down, we know the piece hit a floor
 			this.addPieceToDead(this.currentPiece);
+			this.removeLines();
 			this.getNewPiece();			
 		}
 	};
@@ -88,8 +89,44 @@
 	
 	Board.prototype.removeLines = function() {
 		//next thing to do is add a lines check and lines remove
+		var lines = [];
+		for (var i = 0; i < this.deadBlocks.length; i++) {
+			lines[this.deadBlocks[i].position[1]] = (lines[this.deadBlocks[i].position[1]] || []);
+			lines[this.deadBlocks[i].position[1]].push(this.deadBlocks[i]);
+		}
 		
+		for (var i = 0; i < lines.length; i++) {
+			if (lines[i] && lines[i].length >= 10) {
+				this.destroyLine(i);
+				this.deadBlocksFall(i);
+			}
+		}
 	};
 	
+	Board.prototype.destroyLine = function(lineIndex) {
+		var newDeadBlocks = [];
+		for (var ind = 0; ind < this.deadBlocks.length; ind++) {
+			if (this.deadBlocks[ind].position[1] != lineIndex) {
+				newDeadBlocks.push(this.deadBlocks[ind]);
+			}
+		}
+		
+		this.deadBlocks = newDeadBlocks;
+		
+	};
+
+	Board.prototype.deadBlocksFall = function(limit) {
+		for (var i = 0; i < this.deadBlocks.length; i++) {
+			if (this.deadBlocks[i].position[1] < limit) {
+				this.deadBlocks[i].position[1] +=1;
+			}
+		}
+	};
+
+	Board.prototype.isGameOver = function() {
+		
+		
+	};
+
 
 })(this);

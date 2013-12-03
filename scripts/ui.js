@@ -51,11 +51,12 @@
 	};
 	
 	UI.prototype.printBoard = function(blocks) {
-		$(this.canvas).find(".square").css('background-color', '#99E6FF');
+		$(this.canvas).find(".square").addClass('empty').removeClass('block').css('background-color', '');
 		for(var i = 0; i < blocks.length; i++) {
 			var xPos = blocks[i].position[0];
 			var yPos = blocks[i].position[1];
-			$(this.canvas).find("#pos-" + xPos + "-" + yPos).css('background-color', blocks[i].color);
+			$(this.canvas).find("#pos-" + xPos + "-" + yPos).css('background-color', blocks[i].color).addClass('block');
+			
 		}
 	};
 })(this);
