@@ -7,6 +7,7 @@
 	
 	UI.prototype.createCanvas = function() {
 		this.canvas.empty();
+		this.canvas.append("<div class='flash'></div>");
 
 		// adding the divs to the canvas
 		for(var x = 0; x < game.board.grid.length; x++) {
@@ -47,6 +48,29 @@
 				board.rotateCurrentPiece();
 			}			
 		})
+	};
+	
+	UI.prototype.flipBoard = function(angle) {
+		
+		// this.canvas.find('.flash').css('display', 'block');
+		var canvas = this.canvas
+		
+		canvas.find('.flash').show(500, function() {
+			canvas.find('.flash').hide(250, function() {
+				canvas.css("transform", "rotate(" + angle + "deg)");
+				canvas.css("-ms-transform", "rotate(" + angle + "deg)"); /* IE 9 */
+				canvas.css("-webkit-transform", "rotate(" + angle + "deg)"); /* Safari and Chrome */
+
+				canvas.find('.flash').show(250, function() {
+					canvas.find('.flash').hide(125, function() {
+					});		
+				});		
+			});		
+		});		
+	};
+	
+	UI.prototype.flashBoard = function() {
+		this.canvas.append('asfddsfsd');
 		
 	};
 	

@@ -1,17 +1,24 @@
 <head>
-	<link rel="stylesheet" type="text/css" href="stylesheets/tetris-style.css" />
-	<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
-	<script type='text/javascript' src='scripts/block.js'></script>
-	<script type='text/javascript' src='scripts/piece.js'></script>
-	<script type='text/javascript' src='scripts/board.js'></script>
-	<script type='text/javascript' src='scripts/ui.js'></script>
-	<script type='text/javascript' src='scripts/tetris.js'></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/tetris-style.css" />	
 </head>
 
-<div id='canvas'>
-</div>
+
+<body>
+	<div id='header'>
+		<img src='images/logo.png' style="margin-bottom: 20px;">
+	</div>
+
+	<div id='canvas'>
+	</div>
+</body>
 
 
+<script type="text/javascript" src="scripts/jquery-2.0.3.min.js"></script>
+<script type='text/javascript' src='scripts/block.js'></script>
+<script type='text/javascript' src='scripts/piece.js'></script>
+<script type='text/javascript' src='scripts/board.js'></script>
+<script type='text/javascript' src='scripts/ui.js'></script>
+<script type='text/javascript' src='scripts/tetris.js'></script>
 <script>
 $(document).ready(function() {
 	game = new Tetris.Game();	
