@@ -20,53 +20,82 @@
 
 	UI.prototype.setupControls = function(board) {
 		var that = this;
-		
-		$(document).keydown(function(e) {
+		this.keysNormal = function(e) {
 			
 			//up 
 			if (e.keyCode == 38) {
 				board.rotateCurrentPiece();
 			}
-
 			//down 
-			if (e.keyCode == 40) {
+			else if (e.keyCode == 40) {
 				board.moveCurrentPiece([0,1]);
-				// that.printBoard();
 			}
 			//right 
 			else if (e.keyCode == 39) {
 				board.moveCurrentPiece([1, 0]);
-				// that.printBoard();
 			}
 			//left 
 			else if (e.keyCode == 37) {
 				board.moveCurrentPiece([-1,0]);
-				// that.printBoard();
 			}
 			//space 
 			else if (e.keyCode == 32) {
 				board.rotateCurrentPiece();
 			}			
-		})
+		};
+		
+		this.adjustControls(0);
+	};
+
+	UI.prototype.setupReverseControls = function(board) {
+		var that = this;
+		this.keysReverse = function(e) {
+			
+			//up 
+			if (e.keyCode == 38) {
+				board.moveCurrentPiece([0,1]);
+			}
+			//down 
+			else if (e.keyCode == 40) {
+				board.rotateCurrentPiece();
+			}
+			//right 
+			else if (e.keyCode == 39) {
+				board.moveCurrentPiece([-1,0]);
+			}
+			//left 
+			else if (e.keyCode == 37) {
+				board.moveCurrentPiece([1, 0]);
+			}
+			//space 
+			else if (e.keyCode == 32) {
+				board.rotateCurrentPiece();
+			}			
+		};
 	};
 	
 	UI.prototype.flipBoard = function(angle) {
-		
-		// this.canvas.find('.flash').css('display', 'block');
 		var canvas = this.canvas
-		
-		canvas.find('.flash').show(500, function() {
-			canvas.find('.flash').hide(250, function() {
-				canvas.css("transform", "rotate(" + angle + "deg)");
-				canvas.css("-ms-transform", "rotate(" + angle + "deg)"); /* IE 9 */
-				canvas.css("-webkit-transform", "rotate(" + angle + "deg)"); /* Safari and Chrome */
 
-				canvas.find('.flash').show(250, function() {
-					canvas.find('.flash').hide(125, function() {
-					});		
-				});		
-			});		
+		debugger
+
+		canvas.find('.flash').animate({opacity: 1}, 150, function() {
+			canvas.css("transform", "rotate(" + angle + "deg)");
+			canvas.css("-ms-transform", "rotate(" + angle + "deg)"); /* IE 9 */
+			canvas.css("-webkit-transform", "rotate(" + angle + "deg)"); /* Safari and Chrome */
+			canvas.find('.flash').animate({opacity: 0}, 75, function() {});		
 		});		
+	};
+	
+	UI.prototype.adjustControls = function(currentRotation) {
+		if (currentRotation === 0) {
+			$(root).off("keydown", this.keysReverse);
+			$(root).on("keydown", this.keysNormal);			
+		} else if (currentRotation === 180) {
+			$(root).off("keydown", this.keysNormal);
+			$(root).on("keydown", this.keysReverse);
+		}
+		
 	};
 	
 	UI.prototype.flashBoard = function() {

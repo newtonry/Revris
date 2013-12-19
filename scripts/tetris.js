@@ -10,6 +10,7 @@
 		this.ui = new Tetris.UI(canvas);
 		this.ui.createCanvas();
 		this.ui.setupControls(this.board);
+		this.ui.setupReverseControls(this.board);
 
 		this.board.getNewPiece();		
 		var that = this;
@@ -26,9 +27,8 @@
 	
 	Game.prototype.flipBoard = function() {
 		this.rotation = ((this.rotation || 0) + 180) % 360;
-		
 		this.ui.flipBoard(this.rotation);
-		
+		this.ui.adjustControls(this.rotation);
 	};
 	
 })(this);

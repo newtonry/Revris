@@ -94,7 +94,6 @@
 	};
 	
 	Board.prototype.removeLines = function() {
-		this.controller.flipBoard();
 		var lines = [];
 		for (var i = 0; i < this.deadBlocks.length; i++) {
 			lines[this.deadBlocks[i].position[1]] = (lines[this.deadBlocks[i].position[1]] || []);
