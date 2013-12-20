@@ -77,8 +77,6 @@
 	UI.prototype.flipBoard = function(angle) {
 		var canvas = this.canvas
 
-		debugger
-
 		canvas.find('.flash').animate({opacity: 1}, 150, function() {
 			canvas.css("transform", "rotate(" + angle + "deg)");
 			canvas.css("-ms-transform", "rotate(" + angle + "deg)"); /* IE 9 */

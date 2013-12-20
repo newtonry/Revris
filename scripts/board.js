@@ -2,6 +2,10 @@
 	var Tetris = root.Tetris = (root.Tetris || {});
 	
 	var Board = Tetris.Board = function() {
+		this.setupNewBoard();
+	};
+
+	Board.prototype.setupNewBoard = function() {
 		this.grid = [];
 		
 		for(var x = 0; x < 10; x++) {
@@ -14,6 +18,7 @@
 		this.deadBlocks = [];
 		this.currentPiece = null;
 	};
+
 
 	Board.prototype.getNewPiece = function() {
 		var pieces = [Tetris.iPiece, Tetris.lPiece, Tetris.backLPiece, Tetris.cubePiece, Tetris.sPiece, Tetris.zPiece, Tetris.centerPiece];
@@ -36,6 +41,7 @@
 			this.addPieceToDead(this.currentPiece);
 			this.removeLines();
 			this.getNewPiece();
+			this.isGameOver();
 		}
 	};
 	
@@ -79,7 +85,6 @@
 		}
 		return false;
 	};
-
 	
 	Board.prototype.isOnBoard = function(piece) {
 		for (var i = 0; i < piece.blocks.length; i++) {
@@ -127,7 +132,16 @@
 		}
 	};
 
-	Board.prototype.isGameOver = function() {};
+	Board.prototype.isGameOver = function() {
+		for(var i = 0; i < this.deadBlocks.length; i++) {
+			if (this.deadBlocks[i].position[1] < 2) {
+				if (this.deadBlocks[i].position[0] >= 3 && this.deadBlocks[i].position[0] <= 5) {
+					this.setupNewBoard();
+					this.getNewPiece();
+				}
+			}
+		}
+	};
 
 
 })(this);
