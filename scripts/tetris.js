@@ -30,5 +30,4 @@
 		this.ui.flipBoard(this.rotation);
 		this.ui.adjustControls(this.rotation);
 	};
-	
 })(this);

@@ -7,7 +7,6 @@
 			var newX = this.blocks[i].position[0] + shift[0];
 			var newY = this.blocks[i].position[1] + shift[1];
 			this.blocks[i].position = [newX, newY];
-			
 		}
 	};
 	
@@ -58,7 +57,6 @@
 		}
 	};
 				
-				
 	var iPiece = Tetris.iPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([4,0]),
@@ -84,7 +82,6 @@
 		this.state *= -1;
 	};
 
-
 	var sPiece = Tetris.sPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([3,1]),
@@ -92,7 +89,6 @@
 			new Tetris.Block([4,1]),
 			new Tetris.Block([5,0])
 		];
-
 	};
 	
 	sPiece.prototype.move = Piece.prototype.move;
@@ -125,7 +121,6 @@
 	cubePiece.prototype.deepDup = Piece.prototype.deepDup;
 	cubePiece.prototype.rotate = function() {};
 
-
 	var backLPiece = Tetris.backLPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([3,0]),
@@ -139,7 +134,6 @@
 	backLPiece.prototype.deepDup = Piece.prototype.deepDup;
 	backLPiece.prototype.rotate = Piece.prototype.rotate;
 
-
 	var lPiece = Tetris.lPiece = function() {	
 		this.blocks = [
 			new Tetris.Block([3,1]),
@@ -152,7 +146,6 @@
 	lPiece.prototype.move = Piece.prototype.move;
 	lPiece.prototype.rotate = Piece.prototype.rotate;
 	lPiece.prototype.deepDup = Piece.prototype.deepDup;
-	
 
 	var centerPiece = Tetris.centerPiece = function() {	
 		this.blocks = [
@@ -166,6 +159,4 @@
 	centerPiece.prototype.move = Piece.prototype.move;
 	centerPiece.prototype.deepDup = Piece.prototype.deepDup;
 	centerPiece.prototype.rotate = Piece.prototype.rotate;	
-	
-	
 })(this);

@@ -93,7 +93,6 @@
 			$(root).off("keydown", this.keysNormal);
 			$(root).on("keydown", this.keysReverse);
 		}
-		
 	};
 	
 	UI.prototype.flashBoard = function() {

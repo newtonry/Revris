@@ -19,7 +19,6 @@
 		this.currentPiece = null;
 	};
 
-
 	Board.prototype.getNewPiece = function() {
 		var pieces = [Tetris.iPiece, Tetris.lPiece, Tetris.backLPiece, Tetris.cubePiece, Tetris.sPiece, Tetris.zPiece, Tetris.centerPiece];
 		var pickedPiece = pieces[Math.floor(Math.random()*pieces.length)];
@@ -142,6 +141,4 @@
 			}
 		}
 	};
-
-
 })(this);
