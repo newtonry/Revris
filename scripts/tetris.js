@@ -12,17 +12,15 @@
 		this.ui.setupControls(this.board);
 		this.ui.setupReverseControls(this.board);
 
-		this.board.getNewPiece();		
+		this.board.getNewPiece();
+		this.ui.printBoard(this.board.getAllBlocks());
+		
 		var that = this;
 		
 		setInterval(function() {
  	 		that.board.update();
-			
+			that.ui.printBoard(that.board.getAllBlocks());
 		}, 1000);
-		
-		setInterval(function() {
-			that.ui.printBoard(that.board.getAllBlocks());			
-		}, 16);
 	};
 	
 	Game.prototype.flipBoard = function() {

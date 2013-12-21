@@ -42,6 +42,7 @@
 			else if (e.keyCode == 32) {
 				board.rotateCurrentPiece();
 			}			
+			that.printBoard(board.getAllBlocks());
 		};
 		
 		this.adjustControls(0);
@@ -49,8 +50,7 @@
 
 	UI.prototype.setupReverseControls = function(board) {
 		var that = this;
-		this.keysReverse = function(e) {
-			
+		this.keysReverse = function(e) {			
 			//up 
 			if (e.keyCode == 38) {
 				board.moveCurrentPiece([0,1]);
@@ -71,6 +71,7 @@
 			else if (e.keyCode == 32) {
 				board.rotateCurrentPiece();
 			}			
+			that.printBoard(board.getAllBlocks());			
 		};
 	};
 	
